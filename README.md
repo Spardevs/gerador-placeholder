@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Projeto Gerador de PlaceHolder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto tem objetivo de realizar um teste de consumo de API utilizando ReactJS
 
-## Available Scripts
+## Teste
 
-In the project directory, you can run:
+Crie uma página que consuma a api "<https://placehold.co/>" e possua os controles html necessários para cada uma das sessões, para manipular a criação de uma "imagem de placeholder".
 
-### `npm start`
+Ex: imite a intenção do site "<https://cssgradient.io/>" que cria controles para gerar e manipular o css gradient.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Será necessário
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+>A utilização de docker para levantar o servidor do Create React App e executá-lo na avaliação.
+>
+> Utilizar o Create React App como base para a aplicação.
+>
+> Qualquer biblioteca que auxilie na implementação.
+>
+> Utilizar o MUI para estilização da página e criação dos controles.
 
-### `npm test`
+### Não será permitido
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> A utilização de qualquer framework backend ou framework frontend, como nest, nextjs, etc.
 
-### `npm run build`
+## Criação do ambiente de desenvolvimento
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Passo a passo da criação do ambiente de desenvolvimento ReactJS utilizando o docker
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Iniciar o projeto através do comando:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npx create-react-app gerador-placeholder`.
 
-### `npm run eject`
+Instalar o MUI para a estilização:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm install @mui/material @emotion/react @emotion/styled`.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Criar container custom do Nodejs do Docker, para isso é necessário criar o arquivo Dockerfile e realizar a customização.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Dockerfile
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    #Usar a imagem do Nodejs
+    FROM node
+    #Definicição do diretório de trabalho
+    WORKDIR /app
+    #Copiar os arquivos package.json
+    COPY package.json .
+    #Instalar as dependências
+    RUN npm install
+    #Copiar os arquivos restantes
+    COPY . .
+    #Apontar o App para a porta 3000
+    EXPOSE 3000
+    #Executar o servidor
+    CMD ["npm", "start"]
 
-## Learn More
+A estrutura do Dockerfile serve para otimizar o build.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Criar o arquivo .dockerignore para ignorar alguns arquivos:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+.dockerignore
 
-### Code Splitting
+    node_modules
+    Dockerfile
+    .git
+    .gitignore
+    .dockerignore
+    .env
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Executar o servidor docker através do:
 
-### Analyzing the Bundle Size
+ `docker build -t react-image .`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Para o Windows é necessário criar um arquivo .env com varáveis de ambiente.
+A várivel de ambiente principal é a `WATCHPACK_POLLING=true` para ativar o auto update.
 
-### Making a Progressive Web App
+.env
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    WATCHPACK_POLLING=true
+    REACT_APP_NAME=spardev
 
-### Advanced Configuration
+criar imagem com:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+ `docker run --env-file ./.env -v %cd%\src:/app/src -d -p 3000:3000 --name react-app react-image`.
 
-### Deployment
+Ao criar a imagem ela será apontada para o localhost:3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Parar a imagem:
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`docker rm react-app -f`.

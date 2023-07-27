@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PlaceHolder",
+  "name": "Gerador de PlaceHolder",
   "icons": [
     {
       "src": "favicon.ico",
