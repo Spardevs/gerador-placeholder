@@ -1,9 +1,3 @@
-/**
- * Arquivo principal da aplicação.
- * Neste arquivo, importamos e organizamos os principais componentes da aplicação,
- * além de definir estados e funções para configurar a prévia da imagem ou vídeo.
- */
-
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -78,47 +72,50 @@ const App = () => {
         <Typography variant="h4" gutterBottom margin="20px 0px">
           Gerador de Placeholder
         </Typography>
+          {/* Formulário para configuração do placeholder */}
+          <Grid container spacing={4}>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h6" style={{ margin: "20px 0px" }}>
+                Configuração:
+              </Typography>
+              <ConfiguracaoForm
+                width={width}
+                height={height}
+                format={format}
+                text={text}
+                font={font}
+                bgColor={bgColor}
+                textColor={textColor}
+                isVideo={isVideo}
+                retina={retina}
+                formatDisabled={formatDisabled}
+                retinaDisabled={retinaDisabled}
+                handleTypeChange={handleTypeChange}
+                setWidth={setWidth}
+                setHeight={setHeight}
+                setFormat={setFormat}
+                setText={setText}
+                setFont={setFont}
+                setBgColor={setBgColor}
+                setTextColor={setTextColor}
+                setRetina={setRetina}
+              />
+              
+              {/* Botão "Gerar Placeholder" */}
+              <Button
+                variant="outlined"
+                onClick={() => window.open(imageUrl, "_blank")}
+                style={{ marginTop: "20px" }}
+              >
+                Gerar Placeholder
+              </Button>
 
-        {/* Formulário para configuração do placeholder */}
-        <Grid container spacing={2}>
-          {/* Componente ConfiguracaoForm responsável por exibir o formulário com os campos para configurar o placeholder */}
-          <ConfiguracaoForm
-            width={width}
-            height={height}
-            format={format}
-            text={text}
-            font={font}
-            bgColor={bgColor}
-            textColor={textColor}
-            isVideo={isVideo}
-            retina={retina}
-            formatDisabled={formatDisabled}
-            retinaDisabled={retinaDisabled}
-            handleTypeChange={handleTypeChange}
-            setWidth={setWidth}
-            setHeight={setHeight}
-            setFormat={setFormat}
-            setText={setText}
-            setFont={setFont}
-            setBgColor={setBgColor}
-            setTextColor={setTextColor}
-            setRetina={setRetina}
-          />
-        </Grid>
-
-        {/* Prévia do placeholder */}
-        <Grid container spacing={2}>
-          {/* Componente Preview responsável por exibir a prévia da imagem ou vídeo */}
-          <Preview imageUrl={imageUrl} isVideo={isVideo} />
-          <Grid item xs={12} sm={12}>
-            <Button
-              variant="outlined"
-              onClick={() => window.open(imageUrl, "_blank")}
-            >
-              Gerar Placeholder
-            </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {/* Prévia do placeholder */}
+              <Preview imageUrl={imageUrl} isVideo={isVideo} />
+            </Grid>
           </Grid>
-        </Grid>
       </Container>
     </ThemeProvider>
   );

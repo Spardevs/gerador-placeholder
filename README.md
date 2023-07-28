@@ -66,7 +66,7 @@ Criar o arquivo .dockerignore para ignorar alguns arquivos:
     .dockerignore
     .env
 
-Executar o servidor docker através do:
+Montar a imagem do docker
 
  `docker build -t react-image .`.
 
@@ -78,12 +78,12 @@ A várivel de ambiente principal é a `WATCHPACK_POLLING=true` para ativar o aut
     WATCHPACK_POLLING=true
     REACT_APP_NAME=spardev
 
-criar imagem com:
+Rodar a aplicação
 
  `docker run --env-file ./.env -v %cd%\src:/app/src -d -p 3000:3000 --name react-app react-image`.
 
 Ao criar a imagem ela será apontada para o localhost:3000.
 
-Parar a imagem:
+Remover o container em execução:
 
 `docker rm react-app -f`.
