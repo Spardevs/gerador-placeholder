@@ -1,7 +1,7 @@
 #Usar a imagem do Nodejs
 FROM node
 #Definicição do diretório de trabalho
-WORKDIR /usr/app
+WORKDIR /app
 #Copiar os arquivos package.json
 COPY package.json .
 #Instalar as dependências

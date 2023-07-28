@@ -72,12 +72,14 @@ const App = () => {
         <Typography variant="h4" gutterBottom margin="20px 0px">
           Gerador de Placeholder
         </Typography>
+        
           {/* Formulário para configuração do placeholder */}
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6}>
               <Typography variant="h6" style={{ margin: "20px 0px" }}>
                 Configuração:
               </Typography>
+              
               <ConfiguracaoForm
                 width={width}
                 height={height}
