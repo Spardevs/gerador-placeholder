@@ -10,7 +10,7 @@ Ex: imite a intenção do site "<https://cssgradient.io/>" que cria controles pa
 
 ### Será necessário
 
->A utilização de docker para levantar o servidor do Create React App e executá-lo na avaliação.
+> A utilização de docker para levantar o servidor do Create React App e executá-lo na avaliação.
 >
 > Utilizar o Create React App como base para a aplicação.
 >
